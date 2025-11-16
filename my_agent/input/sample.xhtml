@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>User Management</title>
+</h:head>
+
+<h:body>
+
+<h:form id="mainForm">
+
+    <p:messages id="msgs" autoUpdate="true" closable="true" />
+
+    <!-- USER INPUT SECTION -->
+    <h3>Create / Edit User</h3>
+
+    <p:panelGrid id="userFormGrid" columns="2" styleClass="form-grid">
+
+        <h:outputLabel for="name" value="Name:" />
+        <p:inputText id="name" value="#{userBean.selectedUser.name}" required="true" />
+
+        <h:outputLabel for="email" value="Email:" />
+        <p:inputText id="email" value="#{userBean.selectedUser.email}" required="true" />
+
+        <h:outputLabel for="dob" value="Date of Birth:" />
+        <p:calendar id="dob" value="#{userBean.selectedUser.dob}" pattern="yyyy-MM-dd"
+                    showIcon="true" />
+
+        <h:outputLabel for="role" value="Role:" />
+        <p:selectOneMenu id="role" value="#{userBean.selectedUser.role}">
+            <f:selectItem itemLabel="Admin" itemValue="ADMIN" />
+            <f:selectItem itemLabel="Editor" itemValue="EDITOR" />
+            <f:selectItem itemLabel="Viewer" itemValue="VIEWER" />
+        </p:selectOneMenu>
+
+    </p:panelGrid>
+
+    <p:commandButton id="saveBtn"
+                     value="Save User"
+                     action="#{userBean.saveUser}"
+                     update=":mainForm:userTable :msgs"
+                     process=":mainForm:userFormGrid"
+                     onstart="PF('loading').show()"
+                     oncomplete="PF('loading').hide()"
+                     icon="pi pi-save"
+                     styleClass="btn-primary" />
+
+    <p:spacer height="20px"/>
+
+    <!-- USER LIST SECTION -->
+    <h3>Existing Users</h3>
+
+    <p:dataTable id="userTable"
+                 value="#{userBean.userList}"
+                 var="u"
+                 paginator="true"
+                 rows="5"
+                 selectionMode="single"
+                 selection="#{userBean.selectedUser}"
+                 rowKey="#{u.id}"
+                 filteredValue="#{userBean.filteredUsers}"
+                 emptyMessage="No users found"
+                 styleClass="table-striped">
+
+        <p:column headerText="ID" sortBy="#{u.id}" filterBy="#{u.id}">
+            <h:outputText value="#{u.id}" />
+        </p:column>
+
+        <p:column headerText="Name" sortBy="#{u.name}" filterBy="#{u.name}">
+            <h:outputText value="#{u.name}" />
+        </p:column>
+
+        <p:column headerText="Email" sortBy="#{u.email}" filterBy="#{u.email}">
+            <h:outputText value="#{u.email}" />
+        </p:column>
+
+        <p:column headerText="Role" filterBy="#{u.role}" sortBy="#{u.role}">
+            <h:outputText value="#{u.role}" />
+        </p:column>
+
+        <p:column headerText="Actions">
+            <p:commandButton icon="pi pi-pencil"
+                             update=":mainForm:userFormGrid"
+                             action="#{userBean.editUser(u)}"
+                             process="@this" />
+
+            <p:commandButton icon="pi pi-trash"
+                             action="#{userBean.deleteUser(u)}"
+                             update=":mainForm:userTable :msgs"
+                             process="@this"
+                             styleClass="btn-danger"
+                             onclick="return confirm('Are you sure you want to delete this user?');" />
+        </p:column>
+
+    </p:dataTable>
+
+</h:form>
+
+<!-- LOADING OVERLAY -->
+<p:dialog widgetVar="loading" modal="true" draggable="false" closable="false"
+          showHeader="false" width="80" height="80">
+    <p:graphicImage name="loading.gif" library="images" />
+</p:dialog>
+
+</h:body>
+</html>
