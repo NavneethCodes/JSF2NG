@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Order Details</title>
+</h:head>
+
+<h:body>
+
+<h:form id="orderForm">
+
+    <h2>Order Details: #{orderBean.selectedOrder.id}</h2>
+
+    <p:panel header="Customer Info" style="margin-bottom:20px;">
+        <p:panelGrid columns="2" columnClasses="label,value">
+
+            <h:outputLabel value="Customer:" />
+            <h:outputText value="#{orderBean.selectedOrder.customerName}" />
+
+            <h:outputLabel value="Date:" />
+            <h:outputText value="#{orderBean.selectedOrder.orderDate}" />
+
+            <h:outputLabel value="Total Amount:" />
+            <h:outputText value="#{orderBean.selectedOrder.totalAmount}" />
+
+        </p:panelGrid>
+    </p:panel>
+
+    <p:dataTable value="#{orderBean.selectedOrder.items}"
+                 var="item"
+                 paginator="true"
+                 rows="5">
+
+        <p:column headerText="Product">
+            <h:outputText value="#{item.productName}" />
+        </p:column>
+
+        <p:column headerText="Quantity">
+            <h:outputText value="#{item.quantity}" />
+        </p:column>
+
+        <p:column headerText="Price">
+            <h:outputText value="#{item.price}" />
+        </p:column>
+
+        <p:column headerText="Subtotal">
+            <h:outputText value="#{item.subtotal}" />
+        </p:column>
+
+    </p:dataTable>
+
+    <p:commandButton value="Back"
+                     icon="pi pi-arrow-left"
+                     action="#{orderBean.goBack}" />
+
+</h:form>
+
+</h:body>
+</html>

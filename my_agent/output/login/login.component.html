@@ -1,0 +1,20 @@
+<div class="login-container">
+  <p-card header="Login" style="width:350px; margin:auto; margin-top:80px;">
+    <p-messages [(value)]="messages"></p-messages>
+
+    <div class="p-grid p-nogutter" style="width:100%;">
+      <div class="p-col-12 p-md-12 login-form-grid">
+        <div class="p-field">
+          <label for="username">Username:</label>
+          <input id="username" type="text" pInputText [(ngModel)]="username" required />
+        </div>
+        <div class="p-field">
+          <label for="password">Password:</label>
+          <input id="password" type="password" pPassword [(ngModel)]="password" toggleMask="true" required />
+        </div>
+      </div>
+    </div>
+
+    <p-button label="Login" icon="pi pi-sign-in" (click)="login()" styleClass="login-button"></p-button>
+  </p-card>
+</div>

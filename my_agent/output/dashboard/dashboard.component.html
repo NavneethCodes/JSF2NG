@@ -1,0 +1,34 @@
+<div class="dashboard-container">
+  <h1>Dashboard</h1>
+
+  <div class="p-panelGrid" style="width:100%;">
+    <div class="p-panel-wrapper" style="width:100%;">
+
+      <div class="p-panel" style="text-align:center; padding:20px;">
+        <div class="p-panel-header">Users</div>
+        <div class="p-panel-content">
+          <span style="font-size:30px;">{{ totalUsers }}</span>
+          <br/>
+          <p-button icon="pi pi-users" (click)="goToUsers()">Manage Users</p-button>
+        </div>
+      </div>
+
+      <div class="p-panel" style="text-align:center; padding:20px;">
+        <div class="p-panel-header">Orders</div>
+        <div class="p-panel-content">
+          <span style="font-size:30px;">{{ totalOrders }}</span>
+          <br/>
+          <p-button icon="pi pi-shopping-cart" (click)="goToOrders()">View Orders</p-button>
+        </div>
+      </div>
+
+      <div class="p-panel" style="text-align:center; padding:20px;">
+        <div class="p-panel-header">Revenue</div>
+        <div class="p-panel-content">
+          <span style="font-size:30px;">{{ totalRevenue }}</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+.dashboard-container {
+  padding: 20px;
+}
+
+.p-panelGrid {
+  margin-top: 20px;
+}
+
+.p-panel {
+  margin: 10px;
+}
+
+.p-panel-header {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.p-panel-content {
+  padding-top: 15px;
+}
+
+span {
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+p-button {
+  margin-top: 10px;
+}

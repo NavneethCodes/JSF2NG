@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>User Management</title>
+</h:head>
+
+<h:body>
+
+<h:form id="userForm">
+
+    <h2>User Management</h2>
+
+    <p:panel header="Search Users" style="margin-bottom:20px;">
+        <p:inputText value="#{userBean.searchKeyword}" placeholder="Search by name..." />
+        <p:commandButton value="Search"
+                         icon="pi pi-search"
+                         action="#{userBean.search}"
+                         update="userTable" />
+    </p:panel>
+
+
+    <!-- =======================  TABLE ======================= -->
+    <p:dataTable id="userTable"
+                 value="#{userBean.users}"
+                 var="u"
+                 rowKey="#{u.id}"
+                 paginator="true"
+                 rows="10"
+                 selectionMode="single"
+                 selection="#{userBean.selectedUser}">
+
+        <p:column headerText="ID">
+            <h:outputText value="#{u.id}" />
+        </p:column>
+
+        <p:column headerText="Name" filterBy="#{u.name}" filterMatchMode="contains">
+            <h:outputText value="#{u.name}" />
+        </p:column>
+
+        <p:column headerText="Email" filterBy="#{u.email}">
+            <h:outputText value="#{u.email}" />
+        </p:column>
+
+        <p:column headerText="Role">
+            <h:outputText value="#{u.role}" />
+        </p:column>
+
+        <p:column headerText="Actions" style="width: 150px;">
+            <p:commandButton value="Edit"
+                             icon="pi pi-pencil"
+                             oncomplete="PF('userDialog').show()"
+                             update=":userForm:userDialogPanel"
+                             actionListener="#{userBean.loadUser(u)}" />
+
+            <p:commandButton value="Delete"
+                             icon="pi pi-trash"
+                             action="#{userBean.deleteUser(u)}"
+                             update="userTable"
+                             styleClass="ui-button-danger"
+                             />
+        </p:column>
+
+    </p:dataTable>
+
+
+
+    <!-- =======================  DIALOG ======================= -->
+    <p:dialog header="User Details"
+              widgetVar="userDialog"
+              modal="true"
+              width="450">
+
+        <p:outputPanel id="userDialogPanel">
+
+            <p:panelGrid columns="2" style="width:100%;" columnClasses="label,value">
+
+                <h:outputLabel value="Name:" />
+                <p:inputText value="#{userBean.editUser.name}" required="true" />
+
+                <h:outputLabel value="Email:" />
+                <p:inputText value="#{userBean.editUser.email}" required="true" />
+
+                <h:outputLabel value="Role:" />
+                <p:selectOneMenu value="#{userBean.editUser.role}">
+                    <f:selectItem itemValue="USER" itemLabel="User" />
+                    <f:selectItem itemValue="ADMIN" itemLabel="Admin" />
+                </p:selectOneMenu>
+
+            </p:panelGrid>
+
+            <p:separator />
+
+            <p:commandButton value="Save"
+                             icon="pi pi-check"
+                             action="#{userBean.saveUser}"
+                             update="userTable"
+                             oncomplete="PF('userDialog').hide()" />
+
+        </p:outputPanel>
+
+    </p:dialog>
+
+</h:form>
+
+</h:body>
+</html>

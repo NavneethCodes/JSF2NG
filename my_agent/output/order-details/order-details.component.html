@@ -1,0 +1,53 @@
+<div class="order-details-container">
+  <h2 *ngIf="order">Order Details: {{ order.id }}</h2>
+
+  <p-card *ngIf="order" header="Customer Info" styleClass="customer-info-card">
+    <div class="p-grid p-nogutter">
+      <div class="p-col-12 p-md-12">
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Customer:</label>
+            <span>{{ order.customerName }}</span>
+          </div>
+          <div class="info-item">
+            <label>Date:</label>
+            <span>{{ order.orderDate | date:'medium' }}</span> <!-- Assuming orderDate is a Date object or string parseable by date pipe -->
+          </div>
+          <div class="info-item">
+            <label>Total Amount:</label>
+            <span>{{ order.totalAmount | currency }}</span> <!-- Assuming totalAmount is a number -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-card>
+
+  <p-messages [(value)]="messages"></p-messages>
+
+  <p-table *ngIf="order" [value]="order.items" paginator="true" [rows]="5" styleClass="orders-table">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="productName">Product<p-sorticon field="productName"></p-sorticon></th>
+        <th pSortableColumn="quantity">Quantity<p-sorticon field="quantity"></p-sorticon></th>
+        <th pSortableColumn="price">Price<p-sorticon field="price"></p-sorticon></th>
+        <th pSortableColumn="subtotal">Subtotal<p-sorticon field="subtotal"></p-sorticon></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td>{{ item.productName }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.price | currency }}</td>
+        <td>{{ item.subtotal | currency }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+        <div class="table-paginator-left">Showing {{order.items.length}} items</div>
+    </ng-template>
+     <ng-template pTemplate="paginatorright">
+        <p-paginator [rows]="5" [totalRecords]="order.items.length"></p-paginator>
+    </ng-template>
+  </p-table>
+
+  <p-button *ngIf="order" label="Back" icon="pi pi-arrow-left" (click)="goBack()" styleClass="back-button"></p-button>
+</div>

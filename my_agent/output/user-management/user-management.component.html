@@ -1,0 +1,90 @@
+<div class="user-management-container">
+  <h2>User Management</h2>
+
+  <p-card header="Search Users" styleClass="search-card">
+    <div class="search-form">
+      <input type="text" pInputText [(ngModel)]="searchKeyword" placeholder="Search by name..." />
+      <p-button label="Search" icon="pi pi-search" (click)="searchUsers()"></p-button>
+    </div>
+  </p-card>
+
+  <p-table #userTable [value]="users" 
+           [paginator]="true" [rows]="10" 
+           [(selection)]="selectedUser" 
+           selectionMode="single" 
+           (onRowSelect)="onRowSelect($event)" 
+           styleClass="users-table">
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id">ID<p-sorticon field="id"></p-sorticon></th>
+        <th pSortableColumn="name" filterBy="name" filterMatchMode="contains">Name<p-sorticon field="name"></p-sorticon></th>
+        <th pSortableColumn="email" filterBy="email">Email<p-sorticon field="email"></p-sorticon></th>
+        <th pSortableColumn="role">Role<p-sorticon field="role"></p-sorticon></th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr [pSelectableRow]="user">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td style="width: 150px;">
+          <p-button icon="pi pi-pencil" (click)="showEditDialog(user)" styleClass="edit-button"></p-button>
+          <p-button icon="pi pi-trash" (click)="deleteUser(user)" styleClass="ui-button-danger delete-button"></p-button>
+        </td>
+      </tr>
+    </ng-template>
+     <ng-template pTemplate="paginatorleft">
+        <div class="table-paginator-left">Showing {{users.length}} users</div>
+    </ng-template>
+     <ng-template pTemplate="paginatorright">
+        <p-paginator [rows]="10" [totalRecords]="users.length"></p-paginator>
+    </ng-template>
+  </p-table>
+
+  <div class="action-buttons">
+    <p-button label="Add User" icon="pi pi-plus" (click)="showAddDialog()"></p-button>
+  </div>
+
+  <!-- User Dialog -->
+  <p-dialog header="{{ isEditMode ? 'Edit User' : 'Add User' }}" 
+            widgetVar="userDialog" 
+            [(visible)]="userDialog.visible" 
+            [modal]="true" 
+            [width]="450"
+            #userDialog>
+
+    <div class="dialog-content">
+      <div class="p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-12">
+          <label for="userName">Name:</label>
+          <input id="userName" type="text" pInputText [(ngModel)]="editUser.name" required />
+        </div>
+
+        <div class="p-field p-col-12 p-md-12">
+          <label for="userEmail">Email:</label>
+          <input id="userEmail" type="text" pInputText [(ngModel)]="editUser.email" required />
+        </div>
+
+        <div class="p-field p-col-12 p-md-12">
+          <label for="userRole">Role:</label>
+          <p-dropdown [options]="roles.map(role => ({ label: role, value: role }))" 
+                      [(ngModel)]="editUser.role" 
+                      placeholder="Select a Role" 
+                      required></p-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <p-footer>
+      <p-button label="Cancel" icon="pi pi-times" (click)="hideDialog()" styleClass="ui-button-secondary"></p-button>
+      <p-button label="Save" icon="pi pi-check" (click)="saveUser()" styleClass="save-button"></p-button>
+    </p-footer>
+  </p-dialog>
+
+</div>
+
+<!-- PrimeNG Messages (if not using MessageService directly in component) -->
+<p-toast position="top-center"></p-toast>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Dashboard</title>
+</h:head>
+
+<h:body>
+
+<h:form id="dashForm">
+
+    <h1>Dashboard</h1>
+
+    <p:panelGrid columns="3" style="width:100%;" columnClasses="card,card,card">
+
+        <p:panel header="Users"
+                 style="text-align:center; padding:20px;">
+            <h:outputText value="#{dashboardBean.totalUsers}" style="font-size:30px;" />
+            <br/>
+            <p:commandButton value="Manage Users"
+                             icon="pi pi-users"
+                             action="#{dashboardBean.goToUsers}" />
+        </p:panel>
+
+        <p:panel header="Orders"
+                 style="text-align:center; padding:20px;">
+            <h:outputText value="#{dashboardBean.totalOrders}" style="font-size:30px;" />
+            <br/>
+            <p:commandButton value="View Orders"
+                             icon="pi pi-shopping-cart"
+                             action="#{dashboardBean.goToOrders}" />
+        </p:panel>
+
+        <p:panel header="Revenue"
+                 style="text-align:center; padding:20px;">
+            <h:outputText value="#{dashboardBean.totalRevenue}" style="font-size:30px;" />
+        </p:panel>
+
+    </p:panelGrid>
+
+</h:form>
+
+</h:body>
+</html>

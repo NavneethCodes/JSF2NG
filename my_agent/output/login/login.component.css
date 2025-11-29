@@ -1,0 +1,31 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-button {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.p-field {
+  margin-bottom: 1rem;
+}
+
+.p-field label {
+  display: block;
+  margin-bottom: .5rem;
+  font-weight: bold;
+}
+
+/* PrimeNG specific adjustments if needed */
+.p-card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+/* Adjustments for the grid layout if you are using p-grid */
+.login-form-grid {
+  padding: 0 10px; /* Add some padding to the grid columns */
+}

@@ -1,0 +1,59 @@
+.order-details-container {
+  padding: 20px;
+}
+
+.customer-info-card {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.customer-info-card .p-card-body {
+    padding: 1rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-item label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #6c757d; /* Grey color for labels */
+}
+
+.info-item span {
+  font-size: 1.1em;
+}
+
+.orders-table {
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Styles for PrimeNG table sorting icons */
+.p-sortable-column {
+    cursor: pointer;
+}
+
+/* Style for the back button */
+.back-button {
+  margin-top: 20px;
+}
+
+/* Ensure messages are visible */
+p-messages {
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* Style for paginator */
+.p-paginator {
+    margin-top: 1rem;
+}
