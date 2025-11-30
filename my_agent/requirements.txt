@@ -1,0 +1,17 @@
+# Loads environment variables from .env file
+# Used in code: dotenv.load_dotenv()
+python-dotenv
+
+# The core Agent Development Kit framework
+# Used in code: from google.adk.agents import Agent, SequentialAgent
+# Used in code: from google.adk.runners import InMemoryRunner
+google-adk
+
+# Google's Python SDK for the Gemini API (AI Studio)
+# Required backbone for the models defined in MODEL_NAME (e.g., "gemini-2.5-flash-lite")
+google-generativeai
+
+# Google Cloud Vertex AI SDK
+# Required when os.environ["GOOGLE_GENAI_USE_VERTEXAI"] is set to "TRUE"
+# Also supports enterprise-grade search and grounding tools
+google-cloud-aiplatform
